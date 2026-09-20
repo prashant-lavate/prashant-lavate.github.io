@@ -13,8 +13,9 @@ export default function ContactPage() {
             Tell me what you&apos;re building.
           </h1>
           <p className="mt-6 max-w-md text-lg leading-relaxed text-muted-foreground">
-            Whether it&apos;s a platform that needs a payment or messaging integration done
-            right, or a production issue nobody else wants to own — my inbox is open.
+            Building a product, solving a production problem, or working through
+            a tricky integration? I&apos;m always open to interesting
+            engineering conversations.
           </p>
         </div>
 

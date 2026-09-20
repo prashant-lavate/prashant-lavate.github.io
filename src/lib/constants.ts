@@ -1,9 +1,9 @@
 export const SITE_CONFIG = {
   name: "Prashant Lavate",
-  title: "Full-Stack Developer",
-  tagline: "Full-stack engineer for the parts that can't go down.",
+  title: "Software engineer",
+  tagline: "Software engineer building products that hold up in production",
   description:
-    "Full-stack developer specializing in Angular, React, Node.js, and production integrations — Razorpay, WhatsApp Business, Zoom, Firebase, and Google Sign-In.",
+    "Software engineer experienced in building and maintaining production applications end to end — from frontend and backend development to APIs, databases, cloud services, deployments, and third-party integrations.",
   email: "prashant.lavate.in@gmail.com", // TODO: replace with your real email
   social: {
     linkedin: "https://www.linkedin.com/in/prashant-lavate-631966214/",
@@ -68,7 +68,7 @@ export const INTEGRATIONS = SKILLS.Integrations.map((s) => ({
 }));
 
 export const STATS = [
-  { value: "4+", label: "Years shipping production code" },
+  { value: "2+", label: "Years shipping production code" },
   { value: "5+", label: "Third-party integrations live in prod" },
   // { value: "2–3", label: "Person team, full ownership" },
 ];
@@ -81,10 +81,10 @@ export const NAV_LINKS = [
 
 export const EXPERIENCE = [
   {
-    role: "Full Stack Developer",
+    role: "Software Engineer",
     org: "Evara Technologies",
     period: "Current — ~2 years",
     description:
-      "Full-stack ownership of a production edtech/LMS platform on a small team of 2-3 developers, reporting directly to the company director. Frontend, backend, deployment, and everything that breaks in between.",
+      "End-to-end ownership of production applications on a small engineering team of 2–3 developers, working directly with the company director. Responsible for frontend, backend, APIs, databases, integrations, deployments, and production support.",
   },
 ];
