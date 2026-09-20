@@ -1,0 +1,27 @@
+---
+title: "WhatsApp Business Integration"
+slug: "whatsapp-integration"
+summary: "Meta Cloud API (Direct) integration for OTP authentication, template messaging, and automated replies in production."
+tech: ["Node.js", "Express", "Meta Cloud API", "MongoDB"]
+date: "2026-08"
+featured: false
+---
+
+## Overview
+
+Integrated the WhatsApp Business API (Meta Cloud API, Direct) into a production backend to support OTP-based authentication and automated customer messaging — replacing what had previously relied on email/SMS.
+
+## What I Built
+
+- End-to-end Meta developer dashboard setup: System User token generation, webhook configuration, and app-mode transitions from Development to Live
+- OTP-based WhatsApp login flow, evaluated and implemented as an authentication option
+- Incoming-reply auto-response flow for handling common customer queries
+- Message template management, aligned to Meta's WABA (WhatsApp Business Account) approval requirements
+
+## Debugging Real Production Issues
+
+This wasn't a tutorial integration — it involved diagnosing a sequence of live API errors (401 auth failures, template mismatch errors) down to their root cause: templates must be created under the correct production WABA, not the test WABA — a distinction Meta's docs don't make obvious.
+
+## Stack
+
+Node.js · Express · Meta Cloud API (WhatsApp Business) · MongoDB

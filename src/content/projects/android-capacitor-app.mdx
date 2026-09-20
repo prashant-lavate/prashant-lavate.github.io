@@ -1,0 +1,30 @@
+---
+title: "LMS Android App (Capacitor)"
+slug: "android-capacitor-app"
+summary: "Converted a web platform into a native Android app with biometric login, push notifications, and offline handling."
+tech: ["Capacitor 5", "Angular", "Firebase Cloud Messaging", "Android/Gradle"]
+date: "2026-07"
+featured: false
+---
+
+## Overview
+
+Converted an existing LMS web platform into a distributable Android app using Capacitor 5, backed by a dedicated Firebase project.
+
+## What I Built
+
+- Biometric login via `@capgo/capacitor-native-biometric`
+- Push notifications through Firebase Cloud Messaging, supporting multiple device tokens per user
+- Offline detection using `@capacitor/network` combined with Angular's `NgZone`, including a fix for a persistent logout-while-offline bug
+- Custom native share sheet via DOM injection, working around a `SecurityException` thrown by `@capacitor/share` on Android 12+
+- Zoom deep-linking using `AppLauncher.openUrl()` to hand off directly into the Zoom app for live sessions
+
+## Build & Release
+
+- Upgraded the Gradle toolchain to 8.5 / AGP 8.2.0, pinned to Amazon Corretto 17
+- Standardized the rebuild pipeline: Angular production build → `npx cap sync` → Android Studio clean/rebuild/run
+- Took the app through Google Play's closed testing requirements and handled the AAB vs. APK distribution decision
+
+## Stack
+
+Capacitor 5 · Angular · Firebase Cloud Messaging · Android (Gradle/Kotlin toolchain)
