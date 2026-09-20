@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Download } from "lucide-react";
 import { NAV_LINKS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
@@ -23,7 +23,10 @@ export function SiteHeader() {
           Prashant<span className="text-accent">.</span>dev
         </Link>
 
-        <nav className="hidden items-center gap-8 sm:flex" aria-label="Main navigation">
+        <nav
+          className="hidden items-center gap-8 sm:flex"
+          aria-label="Main navigation"
+        >
           {NAV_LINKS.map((link) => {
             const active = pathname === link.href;
             return (
@@ -33,14 +36,14 @@ export function SiteHeader() {
                 data-cursor="hover"
                 className={cn(
                   "group relative py-1 text-sm text-muted-foreground transition-colors hover:text-foreground",
-                  active && "text-foreground"
+                  active && "text-foreground",
                 )}
               >
                 {link.label}
                 <span
                   className={cn(
                     "absolute inset-x-0 -bottom-0.5 h-px origin-left scale-x-0 bg-accent transition-transform duration-300 group-hover:scale-x-100",
-                    active && "scale-x-100"
+                    active && "scale-x-100",
                   )}
                 />
               </Link>
@@ -53,6 +56,15 @@ export function SiteHeader() {
           >
             Start a project
           </Link>
+
+          <a
+            href="/Prashant_Lavate_Software_Engineer.pdf"
+            download
+            data-cursor="hover"
+            className="inline-flex items-center gap-1.5 rounded-md border border-border px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-accent hover:text-accent"
+          >
+            <Download className="size-3.5" aria-hidden="true" /> Resume
+          </a>
         </nav>
 
         <button
@@ -89,6 +101,15 @@ export function SiteHeader() {
             >
               Start a project
             </Link>
+
+            <a
+              href="/Prashant_Lavate_Software_Engineer.pdf"
+              download
+              onClick={() => setOpen(false)}
+              className="mt-2 inline-flex items-center justify-center gap-1.5 rounded-md border border-border px-3 py-2.5 text-sm font-medium text-foreground"
+            >
+              <Download className="size-3.5" aria-hidden="true" /> Resume
+            </a>
           </div>
         </nav>
       )}
