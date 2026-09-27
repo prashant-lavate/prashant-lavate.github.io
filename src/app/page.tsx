@@ -6,6 +6,8 @@ import {
   StaggerIn,
   StaggerItem,
   ScrollReveal,
+  ScrollStagger,
+  ScrollStaggerItem,
 } from "@/components/motion/reveal";
 import { MagneticButton } from "@/components/motion/magnetic-button";
 import { TiltCard } from "@/components/motion/tilt-card";
@@ -86,9 +88,13 @@ export default function HomePage() {
             <Link
               href="/projects"
               data-cursor="hover"
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground hover:text-accent"
+              className="group inline-flex items-center gap-1.5 text-sm font-medium text-foreground hover:text-accent"
             >
-              See my work <ArrowUpRight className="size-4" aria-hidden="true" />
+              See my work{" "}
+              <ArrowUpRight
+                className="size-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                aria-hidden="true"
+              />
             </Link>
           </StaggerItem>
 
@@ -139,21 +145,25 @@ export default function HomePage() {
 
       {/* Integrations marquee — full-bleed, with logos */}
       <section className="hairline py-10">
-        <p className="site-container mb-6 font-mono text-xs tracking-wide text-muted-foreground uppercase">
-          Production integrations I&apos;ve shipped
-        </p>
+        <ScrollReveal>
+          <p className="site-container mb-6 font-mono text-xs tracking-wide text-muted-foreground uppercase">
+            Production integrations I&apos;ve shipped
+          </p>
+        </ScrollReveal>
         <IntegrationsMarquee />
       </section>
 
       {/* Capabilities — editorial list */}
       <section className="hairline">
         <div className="site-container grid gap-10 py-20 lg:grid-cols-[0.9fr_2fr] lg:gap-16 lg:py-24">
-          <h2 className="font-display max-w-xs text-2xl font-semibold leading-tight">
-            What working with me looks like
-          </h2>
-          <div className="space-y-10">
+          <ScrollReveal>
+            <h2 className="font-display max-w-xs text-2xl font-semibold leading-tight">
+              What working with me looks like
+            </h2>
+          </ScrollReveal>
+          <ScrollStagger className="space-y-10">
             {CAPABILITIES.map((capability, i) => (
-              <div
+              <ScrollStaggerItem
                 key={capability.title}
                 className="group flex max-w-2xl gap-5"
               >
@@ -168,9 +178,9 @@ export default function HomePage() {
                     {capability.body}
                   </p>
                 </div>
-              </div>
+              </ScrollStaggerItem>
             ))}
-          </div>
+          </ScrollStagger>
         </div>
       </section>
 
@@ -179,7 +189,7 @@ export default function HomePage() {
         <section className="hairline">
           <div className="site-container py-20 lg:py-24">
             <ScrollReveal>
-              <TiltCard className="relative grid overflow-hidden rounded-lg border border-border md:grid-cols-2">
+              <TiltCard className="hover-lift grid overflow-hidden rounded-lg border border-border md:grid-cols-2">
                 <div className="flex min-h-72 flex-col justify-between bg-surface p-8 sm:p-12">
                   <p className="font-mono text-xs text-muted-foreground">
                     {featuredProject.date}
@@ -212,14 +222,16 @@ export default function HomePage() {
       {/* Skills — bento grid, with logos */}
       <section className="hairline">
         <div className="site-container py-20 lg:py-24">
-          <h2 className="font-display mb-10 max-w-xs text-2xl font-semibold leading-tight">
-            What I work with
-          </h2>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <ScrollReveal>
+            <h2 className="font-display mb-10 max-w-xs text-2xl font-semibold leading-tight">
+              What I work with
+            </h2>
+          </ScrollReveal>
+          <ScrollStagger className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {Object.entries(SKILLS).map(([category, items], i) => (
-              <div
+              <ScrollStaggerItem
                 key={category}
-                className={`group relative overflow-hidden rounded-lg border border-border bg-surface p-6 transition-colors hover:border-accent/40 ${
+                className={`hover-lift group relative overflow-hidden rounded-lg border border-border bg-surface p-6 transition-colors hover:border-accent/40 ${
                   i === 0 ? "lg:col-span-2 lg:row-span-2" : ""
                 }`}
               >
@@ -237,15 +249,15 @@ export default function HomePage() {
                     />
                   ))}
                 </div>
-              </div>
+              </ScrollStaggerItem>
             ))}
-          </div>
+          </ScrollStagger>
         </div>
       </section>
 
       {/* Closing CTA */}
       <section className="hairline">
-        <div className="site-container flex flex-col items-start justify-between gap-8 py-20 sm:flex-row sm:items-end lg:py-24">
+        <ScrollReveal className="site-container flex flex-col items-start justify-between gap-8 py-20 sm:flex-row sm:items-end lg:py-24">
           <h2 className="font-display max-w-lg text-3xl font-semibold leading-tight sm:text-4xl">
             Have something that needs to work in production, not just in a demo?
           </h2>
@@ -258,7 +270,7 @@ export default function HomePage() {
               <ArrowUpRight className="size-4" aria-hidden="true" />
             </Link>
           </MagneticButton>
-        </div>
+        </ScrollReveal>
       </section>
     </main>
   );

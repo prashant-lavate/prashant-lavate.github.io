@@ -6,7 +6,8 @@ import { motion, useMotionValue, useSpring } from "framer-motion";
 /**
  * Wraps a button/link so it "pulls" gently toward the cursor within its
  * bounds, and snaps back on mouse leave. Purely decorative — pass any
- * interactive child (usually a styled <Link> or <button>).
+ * interactive child (usually a styled <Link> or <button>). A small
+ * `whileTap` scale gives click/tap feedback on top of the magnetic pull.
  */
 export function MagneticButton({
   children,
@@ -43,6 +44,7 @@ export function MagneticButton({
       ref={ref}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
+      whileTap={{ scale: 0.96 }}
       style={{ x: springX, y: springY }}
       data-cursor="hover"
       className={className}

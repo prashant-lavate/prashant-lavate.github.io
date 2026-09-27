@@ -4,12 +4,13 @@ import type { Project } from "@/types/project";
 
 /**
  * Static display card — intentionally not a link. There's no per-project
- * detail route, so these just present the summary in place. Tilt effect
- * stays for visual interest; nothing here navigates anywhere.
+ * detail route, so these just present the summary in place. Tilt + glow
+ * (now working, see tilt-card.tsx) plus a gentle hover-lift keep it feeling
+ * alive without implying it's clickable.
  */
 export function ProjectCard({ project }: { project: Project }) {
   return (
-    <TiltCard className="relative overflow-hidden rounded-lg border border-border p-6 transition-colors hover:border-accent/40 sm:p-8">
+    <TiltCard className="hover-lift overflow-hidden rounded-lg border border-border p-6 transition-colors hover:border-accent/40 sm:p-8">
       <p className="font-mono text-xs text-muted-foreground">{project.date}</p>
       <h3 className="font-display mt-2 text-2xl font-semibold leading-tight">{project.title}</h3>
       <p className="mt-4 max-w-xl leading-relaxed text-muted-foreground">{project.summary}</p>

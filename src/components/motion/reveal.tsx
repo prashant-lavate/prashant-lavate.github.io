@@ -51,8 +51,39 @@ export function StaggerItem({
   );
 }
 
-/** Single scroll-triggered reveal — reserved for one moment on a page (e.g. the featured case study). */
+/**
+ * Scroll-triggered reveal for a single section. `delay` lets adjacent
+ * sections cascade in slightly offset from one another instead of all
+ * firing in lockstep.
+ */
 export function ScrollReveal({
+  children,
+  className,
+  delay = 0,
+}: {
+  children: ReactNode;
+  className?: string;
+  delay?: number;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.7, delay, ease: [0.16, 1, 0.3, 1] }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+/**
+ * Scroll-triggered version of StaggerIn — for grids/lists (skills bento,
+ * capability rows, project cards) that live further down the page and
+ * shouldn't all fire on mount.
+ */
+export function ScrollStagger({
   children,
   className,
 }: {
@@ -61,12 +92,26 @@ export function ScrollReveal({
 }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      variants={container}
+      initial="hidden"
+      whileInView="show"
       viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
       className={className}
     >
+      {children}
+    </motion.div>
+  );
+}
+
+export function ScrollStaggerItem({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <motion.div variants={item} className={className}>
       {children}
     </motion.div>
   );

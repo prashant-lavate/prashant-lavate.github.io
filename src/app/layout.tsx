@@ -7,6 +7,7 @@ import { SiteFooter } from "@/components/layout/site-footer";
 import { SmoothScrollProvider } from "@/components/chrome/smooth-scroll-provider";
 import { Cursor } from "@/components/chrome/cursor";
 import { ScrollProgress } from "@/components/chrome/scroll-progress";
+import { PageTransition } from "@/components/motion/page-transition";
 import { SITE_CONFIG } from "@/lib/constants";
 
 const inter = Inter({
@@ -50,7 +51,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <ScrollProgress />
           <Cursor />
           <SiteHeader />
-          <div className="flex-1">{children}</div>
+          <div className="flex-1">
+            <PageTransition>{children}</PageTransition>
+          </div>
           <SiteFooter />
         </SmoothScrollProvider>
       </body>
