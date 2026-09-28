@@ -2,11 +2,16 @@
 
 import { useRef, type ReactNode, type MouseEvent } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { cn } from "@/lib/utils";
 
 /**
  * Subtle 3D tilt on hover, following the cursor position within the card.
  * Wrap any card content; keep the tilt small (max ~6deg) so it reads as
  * "responsive" rather than gimmicky.
+ *
+ * Fix: the glow layer relies on `group-hover:opacity-100`, so the root now
+ * always carries `group relative` itself instead of expecting callers to
+ * remember to add it — previously the glow never rendered.
  */
 export function TiltCard({
   children,
@@ -51,10 +56,10 @@ export function TiltCard({
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{ rotateX, rotateY, transformPerspective: 800 }}
-      className={className}
+      className={cn("group relative", className)}
     >
       <motion.div
-        className="pointer-events-none absolute inset-0 rounded-[inherit] opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+        className="pointer-events-none absolute inset-0 z-10 rounded-[inherit] opacity-0 transition-opacity duration-300 group-hover:opacity-100"
         style={{ backgroundImage: glow }}
       />
       {children}
