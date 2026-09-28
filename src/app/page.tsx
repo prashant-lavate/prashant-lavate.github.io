@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { getAllProjects } from "@/lib/mdx";
 import { Badge } from "@/components/ui/badge";
+import KineticGrid from "@/components/ui/kinetic-grid";
 import {
   StaggerIn,
   StaggerItem,
@@ -41,106 +42,95 @@ export default function HomePage() {
 
   return (
     <main className="overflow-x-clip">
-      {/* Hero */}
-      <section className="relative site-container grid gap-16 py-20 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12 lg:py-32">
-        <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-          <div
-            className="orb-a absolute -top-24 left-[-10%] size-[26rem] rounded-full opacity-30 blur-[100px]"
-            style={{
-              background: "radial-gradient(circle, #4c8dff, transparent 70%)",
-            }}
-          />
-          <div
-            className="orb-b absolute top-1/3 right-[-15%] size-[24rem] rounded-full opacity-25 blur-[110px]"
-            style={{
-              background: "radial-gradient(circle, #34d399, transparent 70%)",
-            }}
-          />
-        </div>
+      {/* Hero — interactive grid background, original content on top */}
+      <section className="relative overflow-hidden">
+        <KineticGrid />
 
-        <StaggerIn>
-          {/* <StaggerItem>
-            <span className="mb-5 inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 font-mono text-xs text-muted-foreground">
-              <span className="status-dot-live size-1.5 rounded-full bg-signal" />
-              Available for new projects
-            </span>
-          </StaggerItem> */}
-          <StaggerItem>
-            <h1 className="font-display max-w-xl text-[clamp(2.75rem,6vw,4.25rem)] font-semibold leading-[1.05] tracking-tight">
-              {SITE_CONFIG.tagline}
-            </h1>
-          </StaggerItem>
-          <StaggerItem className="mt-6 max-w-md text-lg leading-relaxed text-muted-foreground">
-            I&apos;m {SITE_CONFIG.name.split(" ")[0]}, a software engineer who
-            builds and maintains production applications end to end — from
-            Angular and React on the frontend to Node.js on the backend, with
-            APIs, databases, and third-party integrations in between.
-          </StaggerItem>
-          <StaggerItem className="mt-9 flex flex-wrap items-center gap-4">
-            <MagneticButton>
+        <div className="relative site-container grid gap-16 py-20 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12 lg:py-32">
+          <StaggerIn>
+            {/* <StaggerItem>
+              <span className="mb-5 inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 font-mono text-xs text-muted-foreground">
+                <span className="status-dot-live size-1.5 rounded-full bg-signal" />
+                Available for new projects
+              </span>
+            </StaggerItem> */}
+            <StaggerItem>
+              <h1 className="font-display max-w-xl text-[clamp(2.75rem,6vw,4.25rem)] font-semibold leading-[1.05] tracking-tight">
+                {SITE_CONFIG.tagline}
+              </h1>
+            </StaggerItem>
+            <StaggerItem className="mt-6 max-w-md text-lg leading-relaxed text-muted-foreground">
+              I&apos;m {SITE_CONFIG.name.split(" ")[0]}, a software engineer who
+              builds and maintains production applications end to end — from
+              Angular and React on the frontend to Node.js on the backend, with
+              APIs, databases, and third-party integrations in between.
+            </StaggerItem>
+            <StaggerItem className="mt-9 flex flex-wrap items-center gap-4">
+              <MagneticButton>
+                <Link
+                  href="/contact"
+                  className="inline-block rounded-md bg-accent px-5 py-3 text-sm font-medium text-accent-foreground"
+                >
+                  Start a project
+                </Link>
+              </MagneticButton>
               <Link
-                href="/contact"
-                className="inline-block rounded-md bg-accent px-5 py-3 text-sm font-medium text-accent-foreground"
+                href="/projects"
+                data-cursor="hover"
+                className="group inline-flex items-center gap-1.5 text-sm font-medium text-foreground hover:text-accent"
               >
-                Start a project
+                See my work{" "}
+                <ArrowUpRight
+                  className="size-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                  aria-hidden="true"
+                />
               </Link>
-            </MagneticButton>
-            <Link
-              href="/projects"
-              data-cursor="hover"
-              className="group inline-flex items-center gap-1.5 text-sm font-medium text-foreground hover:text-accent"
-            >
-              See my work{" "}
-              <ArrowUpRight
-                className="size-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                aria-hidden="true"
-              />
-            </Link>
-          </StaggerItem>
+            </StaggerItem>
 
-          <StaggerItem className="mt-16 grid max-w-md grid-cols-3 gap-6">
-            {STATS.map((stat) => (
-              <div key={stat.label}>
-                <p className="font-display text-3xl font-semibold text-foreground">
-                  {stat.value}
-                </p>
-                <p className="mt-1 text-xs leading-snug text-muted-foreground">
-                  {stat.label}
-                </p>
-              </div>
-            ))}
-          </StaggerItem>
-        </StaggerIn>
+            <StaggerItem className="mt-16 grid max-w-md grid-cols-3 gap-6">
+              {STATS.map((stat) => (
+                <div key={stat.label}>
+                  <p className="font-display text-3xl font-semibold text-foreground">
+                    {stat.value}
+                  </p>
+                  <p className="mt-1 text-xs leading-snug text-muted-foreground">
+                    {stat.label}
+                  </p>
+                </div>
+              ))}
+            </StaggerItem>
+          </StaggerIn>
 
-        {/* Integrations status panel */}
-        <StaggerIn className="lg:pt-1">
-          <StaggerItem>
-            <div className="overflow-hidden rounded-lg border border-border bg-surface/80 backdrop-blur">
-              <div className="flex items-center justify-between border-b border-border px-5 py-3.5">
-                <p className="font-mono text-xs text-muted-foreground">
-                  production_integrations.log
-                </p>
-                <span className="flex items-center gap-2 font-mono text-xs text-signal">
-                  <span className="status-dot-live size-1.5 rounded-full bg-signal" />
-                  live
-                </span>
+          {/* Integrations status panel */}
+          <StaggerIn className="lg:pt-1">
+            <StaggerItem>
+              <div className="overflow-hidden rounded-lg border border-border bg-surface/80 backdrop-blur">
+                <div className="flex items-center justify-between border-b border-border px-5 py-3.5">
+                  <p className="font-mono text-xs text-muted-foreground">
+                    production_integrations.log
+                  </p>
+                  <span className="flex items-center gap-2 font-mono text-xs text-signal">
+                    <span className="status-dot-live size-1.5 rounded-full bg-signal" />
+                    live
+                  </span>
+                </div>
+                <div className="space-y-3 px-5 py-6">
+                  {SKILLS.Integrations.slice(0, 3).map((integration) => (
+                    <div
+                      key={integration.name}
+                      className="flex items-center justify-between text-sm"
+                    >
+                      <span className="text-foreground">{integration.name}</span>
+                      <span className="font-mono text-xs text-signal">
+                        ✓ shipped
+                      </span>
+                    </div>
+                  ))}
+                </div>
               </div>
-              <div className="space-y-3 px-5 py-6">
-                {SKILLS.Integrations.slice(0, 3).map((integration) => (
-                  <div
-                    key={integration.name}
-                    className="flex items-center justify-between text-sm"
-                  >
-                    <span className="text-foreground">{integration.name}</span>
-                    <span className="font-mono text-xs text-signal">
-                      ✓ shipped
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </StaggerItem>
-        </StaggerIn>
+            </StaggerItem>
+          </StaggerIn>
+        </div>
       </section>
 
       {/* Integrations marquee — full-bleed, with logos */}

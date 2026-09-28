@@ -7,6 +7,7 @@ import { SiteFooter } from "@/components/layout/site-footer";
 import { SmoothScrollProvider } from "@/components/chrome/smooth-scroll-provider";
 import { Cursor } from "@/components/chrome/cursor";
 import { ScrollProgress } from "@/components/chrome/scroll-progress";
+import { PageLoader } from "@/components/chrome/page-loader";
 import { PageTransition } from "@/components/motion/page-transition";
 import { SITE_CONFIG } from "@/lib/constants";
 
@@ -35,19 +36,26 @@ export const metadata: Metadata = {
   description: SITE_CONFIG.description,
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html
       lang="en"
+      data-scroll-behavior="smooth"
+      suppressHydrationWarning
       className={cn(
         "h-full antialiased",
         inter.variable,
         spaceGrotesk.variable,
-        jetbrainsMono.variable
+        jetbrainsMono.variable,
       )}
     >
       <body className="flex min-h-full flex-col bg-background text-foreground">
         <SmoothScrollProvider>
+          <PageLoader />
           <ScrollProgress />
           <Cursor />
           <SiteHeader />

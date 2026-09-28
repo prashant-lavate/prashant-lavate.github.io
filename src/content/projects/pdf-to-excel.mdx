@@ -1,0 +1,42 @@
+---
+title: "PDF to Excel Desktop Converter"
+slug: "pdf-excel-converter"
+summary: "Offline Windows desktop app that extracts tables from PDFs into Excel, built in Python with a hardware-locked, RSA-signed license — no server, no internet, ever."
+tech: ["Python", "pdfplumber", "pywebview", "Tailwind CSS", "PyInstaller"]
+date: "2026-09"
+featured: false
+---
+
+## Overview
+
+Built a Windows desktop app that converts PDF tables into clean, ready-to-use Excel files, for a client who needed to process sensitive documents without any data leaving their machine. Everything runs 100% locally: no cloud, no uploads, no accounts.
+
+## What I Built
+
+- Table extraction engine in Python (pdfplumber + pandas) that tries ruled-line detection first, then falls back to text-alignment detection for borderless tables
+- Smart cleanup for real-world PDFs: detects the true header row under title banners, repairs digits split by font kerning, and merges tables that continue across page breaks into a single sheet
+- Number parsing tuned for financial reports: Indian lakh/crore grouping, currency symbols, percentages, and accounting-style negatives in parentheses
+- Batch mode: drop multiple PDFs or point at a whole folder and get one Excel file per PDF, with live per-file progress
+- Scanned, image-only PDFs are detected up front and skipped with a clear message instead of failing silently
+- Desktop UI written in HTML, Tailwind CSS, and JavaScript, rendered in a native window through pywebview and bridged to the Python engine
+
+## How the Licensing Works
+
+The app is distributed directly to clients, so I designed a license system that needs no server and no internet connection:
+
+- A one-time RSA key pair: the private key stays with me, and the public key is baked into the app
+- Each client's PC is identified by a hardware fingerprint, a SHA-256 hash of its BIOS and motherboard serial numbers, collected with a single PowerShell line the client can run and send back
+- A small local script signs a `license.json` listing up to 6 approved machines
+- On launch, the app verifies the signature and checks the current machine against the signed list. Editing the file to add a device breaks the signature, and an unlicensed PC never gets past startup
+
+The trade-off is deliberate: adding a device means issuing a new signed file, but in return the app keeps its "runs entirely offline" promise with no activation step at all.
+
+## Packaging and Delivery
+
+- Bundled into a single Windows executable with PyInstaller, with the UI assets and the client's license embedded
+- Wrapped in an Inno Setup installer that installs per-user, so employees don't need admin rights, and adds Start Menu and desktop shortcuts plus a proper uninstaller
+- Each client gets their own build with their own signed license
+
+## Stack
+
+Python · pdfplumber · pandas · openpyxl · pywebview · Tailwind CSS · JavaScript · PyInstaller · Inno Setup · RSA (cryptography)
