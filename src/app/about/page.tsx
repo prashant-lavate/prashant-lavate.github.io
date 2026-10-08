@@ -77,7 +77,7 @@ export default function AboutPage() {
           <MagneticButton className="inline-block">
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 rounded-md bg-accent px-5 py-3 text-sm font-medium text-accent-foreground"
+              className="inline-flex items-center gap-2 bg-accent px-5 py-3 text-sm font-medium text-accent-foreground"
             >
               Get in touch <ArrowUpRight className="size-4" aria-hidden="true" />
             </Link>

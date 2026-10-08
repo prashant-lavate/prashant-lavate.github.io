@@ -74,7 +74,7 @@ export function SiteHeader() {
           <Link
             href="/contact"
             data-cursor="hover"
-            className="rounded-md bg-accent px-4 py-2 text-sm font-medium text-accent-foreground transition-transform duration-200 hover:-translate-y-0.5 hover:opacity-90"
+            className="bg-accent px-4 py-2 text-sm font-medium text-accent-foreground hover:opacity-90"
           >
             Start a project
           </Link>
@@ -83,7 +83,7 @@ export function SiteHeader() {
             href="/Prashant_Lavate_Software_Engineer.pdf"
             download
             data-cursor="hover"
-            className="inline-flex items-center gap-1.5 rounded-md border border-border px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-accent hover:text-accent"
+            className="inline-flex items-center gap-1.5 border border-border px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-accent hover:text-accent"
           >
             <Download className="size-3.5" aria-hidden="true" /> Resume
           </a>
@@ -142,7 +142,7 @@ export function SiteHeader() {
               <Link
                 href="/contact"
                 onClick={() => setOpen(false)}
-                className="mt-2 rounded-md bg-accent px-3 py-2.5 text-center text-sm font-medium text-accent-foreground"
+                className="mt-2 bg-accent px-3 py-2.5 text-center text-sm font-medium text-accent-foreground"
               >
                 Start a project
               </Link>

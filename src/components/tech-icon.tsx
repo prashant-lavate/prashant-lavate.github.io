@@ -69,18 +69,29 @@ export function TechIcon({
   return <Icon className={className} style={{ color }} aria-hidden="true" />;
 }
 
-/** A small pill: icon in a tinted circle + label. Used for skill/integration chips. */
+/**
+ * A small pill: icon in a tinted circle + label. Used for skill chips.
+ * `familiar` renders a dashed, slightly dimmer chip: known, but not a daily driver.
+ */
 export function TechChip({
   name,
   icon,
   color,
+  familiar = false,
 }: {
   name: string;
   icon: string;
   color: string;
+  familiar?: boolean;
 }) {
   return (
-    <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background px-3 py-1.5 text-xs text-foreground transition-all duration-200 hover:-translate-y-0.5 hover:border-accent/40">
+    <span
+      className={`inline-flex items-center gap-1.5 rounded-full border bg-background/60 px-3 py-1.5 text-xs transition-all duration-200 hover:-translate-y-0.5 hover:border-accent/40 ${
+        familiar
+          ? "border-dashed border-border text-muted-foreground"
+          : "border-border text-foreground"
+      }`}
+    >
       <span
         className="flex size-4 shrink-0 items-center justify-center rounded-full"
         style={{ backgroundColor: `${color}26` }}

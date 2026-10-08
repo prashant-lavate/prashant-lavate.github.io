@@ -1,8 +1,7 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, MapPin } from "lucide-react";
 import { getAllProjects } from "@/lib/mdx";
 import { Badge } from "@/components/ui/badge";
-import KineticGrid from "@/components/ui/kinetic-grid";
 import {
   StaggerIn,
   StaggerItem,
@@ -17,7 +16,7 @@ import { TechChip } from "@/components/tech-icon";
 import { SITE_CONFIG, SKILLS, STATS } from "@/lib/constants";
 
 export const metadata = {
-  title: "Software Engineer",
+  title: "Full-stack software engineer, Mumbai",
 };
 
 const CAPABILITIES = [
@@ -39,21 +38,27 @@ export default function HomePage() {
   const projects = getAllProjects();
   const featuredProject =
     projects.find((project) => project.featured) ?? projects[0];
+  const recentProjects = [...projects]
+    .sort((a, b) => (a.date < b.date ? 1 : -1))
+    .slice(0, 4);
+
+  // The marquee already covers integrations, so skip that group in the skills grid.
+  const skillGroups = Object.entries(SKILLS).filter(
+    ([category]) => category !== "Integrations",
+  );
 
   return (
     <main className="overflow-x-clip">
-      {/* Hero — interactive grid background, original content on top */}
-      <section className="relative overflow-hidden">
-        <KineticGrid />
-
+      {/* Hero — the site-wide starfield (in layout.tsx) is the background */}
+      <section className="relative">
         <div className="relative site-container grid gap-16 py-20 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12 lg:py-32">
           <StaggerIn>
-            {/* <StaggerItem>
-              <span className="mb-5 inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 font-mono text-xs text-muted-foreground">
+            <StaggerItem>
+              <span className="mb-5 inline-flex items-center gap-2 rounded-full border border-border bg-surface/70 px-3 py-1 text-xs text-muted-foreground backdrop-blur-sm">
                 <span className="status-dot-live size-1.5 rounded-full bg-signal" />
-                Available for new projects
+                {SITE_CONFIG.availability}
               </span>
-            </StaggerItem> */}
+            </StaggerItem>
             <StaggerItem>
               <h1 className="font-display max-w-xl text-[clamp(2.75rem,6vw,4.25rem)] font-semibold leading-[1.05] tracking-tight">
                 {SITE_CONFIG.tagline}
@@ -65,15 +70,22 @@ export default function HomePage() {
               Angular and React on the frontend to Node.js on the backend, with
               APIs, databases, and third-party integrations in between.
             </StaggerItem>
-            <StaggerItem className="mt-9 flex flex-wrap items-center gap-4">
-              <MagneticButton>
-                <Link
-                  href="/contact"
-                  className="inline-block rounded-md bg-accent px-5 py-3 text-sm font-medium text-accent-foreground"
+            <StaggerItem className="mt-4 flex items-center gap-2 text-sm text-muted-foreground">
+              <MapPin className="size-4" aria-hidden="true" />
+              {SITE_CONFIG.location}
+            </StaggerItem>
+            <StaggerItem className="mt-8 flex flex-wrap items-center gap-4">
+              <button>
+                <a
+                  href={SITE_CONFIG.resume}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block bg-accent px-5 py-3 text-sm font-medium text-accent-foreground"
                 >
-                  Start a project
-                </Link>
-              </MagneticButton>
+                  View resume
+                </a>
+             </button>
+              
               <Link
                 href="/projects"
                 data-cursor="hover"
@@ -87,7 +99,7 @@ export default function HomePage() {
               </Link>
             </StaggerItem>
 
-            <StaggerItem className="mt-16 grid max-w-md grid-cols-3 gap-6">
+            <StaggerItem className="mt-16 grid max-w-md grid-cols-2 gap-6">
               {STATS.map((stat) => (
                 <div key={stat.label}>
                   <p className="font-display text-3xl font-semibold text-foreground">
@@ -101,13 +113,13 @@ export default function HomePage() {
             </StaggerItem>
           </StaggerIn>
 
-          {/* Integrations status panel */}
+          {/* Launch log — built from the real project data */}
           <StaggerIn className="lg:pt-1">
             <StaggerItem>
-              <div className="overflow-hidden rounded-lg border border-border bg-surface/80 backdrop-blur">
+              <div className="overflow-hidden rounded-lg border border-border bg-surface/70 backdrop-blur">
                 <div className="flex items-center justify-between border-b border-border px-5 py-3.5">
                   <p className="font-mono text-xs text-muted-foreground">
-                    production_integrations.log
+                    recent_launches.log
                   </p>
                   <span className="flex items-center gap-2 font-mono text-xs text-signal">
                     <span className="status-dot-live size-1.5 rounded-full bg-signal" />
@@ -115,14 +127,14 @@ export default function HomePage() {
                   </span>
                 </div>
                 <div className="space-y-3 px-5 py-6">
-                  {SKILLS.Integrations.slice(0, 3).map((integration) => (
+                  {recentProjects.map((project) => (
                     <div
-                      key={integration.name}
-                      className="flex items-center justify-between text-sm"
+                      key={project.slug}
+                      className="flex items-center justify-between gap-4 text-sm"
                     >
-                      <span className="text-foreground">{integration.name}</span>
-                      <span className="font-mono text-xs text-signal">
-                        ✓ shipped
+                      <span className="text-foreground">{project.title}</span>
+                      <span className="shrink-0 font-mono text-xs text-signal">
+                        ✓ {project.date}
                       </span>
                     </div>
                   ))}
@@ -133,17 +145,17 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Integrations marquee — full-bleed, with logos */}
+      {/* Integrations marquee — full-bleed */}
       <section className="hairline py-10">
         <ScrollReveal>
-          <p className="site-container mb-6 font-mono text-xs tracking-wide text-muted-foreground uppercase">
+          <p className="site-container mb-6 text-sm text-muted-foreground">
             Production integrations I&apos;ve shipped
           </p>
         </ScrollReveal>
         <IntegrationsMarquee />
       </section>
 
-      {/* Capabilities — editorial list */}
+      {/* Capabilities */}
       <section className="hairline">
         <div className="site-container grid gap-10 py-20 lg:grid-cols-[0.9fr_2fr] lg:gap-16 lg:py-24">
           <ScrollReveal>
@@ -152,46 +164,54 @@ export default function HomePage() {
             </h2>
           </ScrollReveal>
           <ScrollStagger className="space-y-10">
-            {CAPABILITIES.map((capability, i) => (
+            {CAPABILITIES.map((capability) => (
               <ScrollStaggerItem
                 key={capability.title}
-                className="group flex max-w-2xl gap-5"
+                className="group max-w-2xl border-l border-border pl-6 transition-colors hover:border-accent/60"
               >
-                <span className="font-mono text-sm text-muted-foreground/60 transition-colors group-hover:text-accent">
-                  0{i + 1}
-                </span>
-                <div>
-                  <h3 className="text-lg font-medium text-foreground">
-                    {capability.title}
-                  </h3>
-                  <p className="mt-2 leading-relaxed text-muted-foreground">
-                    {capability.body}
-                  </p>
-                </div>
+                <h3 className="text-lg font-medium text-foreground">
+                  {capability.title}
+                </h3>
+                <p className="mt-2 leading-relaxed text-muted-foreground">
+                  {capability.body}
+                </p>
               </ScrollStaggerItem>
             ))}
           </ScrollStagger>
         </div>
       </section>
 
-      {/* Featured case study — static, no link, no arrow */}
+      {/* Featured case study — static, no link */}
       {featuredProject && (
         <section className="hairline">
           <div className="site-container py-20 lg:py-24">
             <ScrollReveal>
+              <div className="mb-8 flex items-end justify-between gap-4">
+                <h2 className="font-display text-2xl font-semibold leading-tight">
+                  Featured work
+                </h2>
+                <Link
+                  href="/projects"
+                  data-cursor="hover"
+                  className="group inline-flex items-center gap-1.5 text-sm font-medium text-foreground hover:text-accent"
+                >
+                  All projects{" "}
+                  <ArrowUpRight
+                    className="size-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                    aria-hidden="true"
+                  />
+                </Link>
+              </div>
               <TiltCard className="hover-lift grid overflow-hidden rounded-lg border border-border md:grid-cols-2">
-                <div className="flex min-h-72 flex-col justify-between bg-surface p-8 sm:p-12">
+                <div className="flex min-h-72 flex-col justify-between bg-surface/70 p-8 backdrop-blur-sm sm:p-12">
                   <p className="font-mono text-xs text-muted-foreground">
                     {featuredProject.date}
                   </p>
                   <h3 className="font-display text-3xl font-semibold leading-tight sm:text-4xl">
                     {featuredProject.title}
                   </h3>
-                  <span className="font-mono text-xs tracking-wide text-muted-foreground uppercase">
-                    Featured work
-                  </span>
                 </div>
-                <div className="flex min-h-72 flex-col justify-between p-8 sm:p-12">
+                <div className="flex min-h-72 flex-col justify-between bg-surface/40 p-8 backdrop-blur-sm sm:p-12">
                   <p className="max-w-md leading-relaxed text-muted-foreground">
                     {featuredProject.summary}
                   </p>
@@ -209,26 +229,25 @@ export default function HomePage() {
         </section>
       )}
 
-      {/* Skills — bento grid, with logos */}
+      {/* Skills */}
       <section className="hairline">
         <div className="site-container py-20 lg:py-24">
           <ScrollReveal>
-            <h2 className="font-display mb-10 max-w-xs text-2xl font-semibold leading-tight">
+            <h2 className="font-display max-w-xs text-2xl font-semibold leading-tight">
               What I work with
             </h2>
+            <p className="mt-3 mb-10 text-sm text-muted-foreground">
+              Dashed chips are tools I know but don&apos;t use daily.
+            </p>
           </ScrollReveal>
-          <ScrollStagger className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {Object.entries(SKILLS).map(([category, items], i) => (
+          <ScrollStagger className="grid gap-4 md:grid-cols-3">
+            {skillGroups.map(([category, items]) => (
               <ScrollStaggerItem
                 key={category}
-                className={`hover-lift group relative overflow-hidden rounded-lg border border-border bg-surface p-6 transition-colors hover:border-accent/40 ${
-                  i === 0 ? "lg:col-span-2 lg:row-span-2" : ""
-                }`}
+                className="hover-lift group relative overflow-hidden rounded-lg border border-border bg-surface/70 p-6 backdrop-blur-sm transition-colors hover:border-accent/40"
               >
                 <div className="pointer-events-none absolute -top-10 -right-10 size-32 rounded-full bg-accent/10 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100" />
-                <p className="font-mono text-xs tracking-wide text-muted-foreground uppercase">
-                  {category}
-                </p>
+                <p className="text-sm font-medium text-foreground">{category}</p>
                 <div className="mt-4 flex flex-wrap gap-2">
                   {items.map((item) => (
                     <TechChip
@@ -236,6 +255,7 @@ export default function HomePage() {
                       name={item.name}
                       icon={item.icon}
                       color={item.color}
+                      familiar={item.familiar}
                     />
                   ))}
                 </div>
@@ -249,14 +269,14 @@ export default function HomePage() {
       <section className="hairline">
         <ScrollReveal className="site-container flex flex-col items-start justify-between gap-8 py-20 sm:flex-row sm:items-end lg:py-24">
           <h2 className="font-display max-w-lg text-3xl font-semibold leading-tight sm:text-4xl">
-            Have something that needs to work in production, not just in a demo?
+            Hiring a full-stack engineer who owns what ships?
           </h2>
           <MagneticButton className="shrink-0">
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 rounded-md bg-accent px-5 py-3 text-sm font-medium text-accent-foreground"
+              className="inline-flex items-center gap-2 bg-accent px-5 py-3 text-sm font-medium text-accent-foreground"
             >
-              Let&apos;s talk{" "}
+              Get in touch{" "}
               <ArrowUpRight className="size-4" aria-hidden="true" />
             </Link>
           </MagneticButton>

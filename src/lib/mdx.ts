@@ -6,11 +6,14 @@ import type { Project, ProjectFrontmatter } from "@/types/project";
 const PROJECTS_DIR = path.join(process.cwd(), "src/content/projects");
 
 export function getAllProjects(): Project[] {
+  if (!fs.existsSync(PROJECTS_DIR)) return [];
+
   const files = fs.readdirSync(PROJECTS_DIR).filter((f) => f.endsWith(".mdx"));
 
   const projects = files.map((filename) => {
     const filePath = path.join(PROJECTS_DIR, filename);
-    const raw = fs.readFileSync(filePath, "utf-8");
+    // Normalise Windows (CRLF) line endings so frontmatter parsing is predictable.
+    const raw = fs.readFileSync(filePath, "utf-8").replace(/\r\n/g, "\n");
     const { data, content } = matter(raw);
     const frontmatter = data as ProjectFrontmatter;
 
@@ -20,8 +23,11 @@ export function getAllProjects(): Project[] {
     };
   });
 
-  // Newest first
-  return projects.sort((a, b) => (a.date < b.date ? 1 : -1));
+  // Manual `order` first, then newest first.
+  return projects.sort(
+    (a, b) =>
+      (a.order ?? 99) - (b.order ?? 99) || (a.date < b.date ? 1 : -1),
+  );
 }
 
 export function getProjectBySlug(slug: string): Project | null {
