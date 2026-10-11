@@ -80,7 +80,7 @@ export function SiteHeader() {
           </Link>
 
           <a
-            href="/Prashant_Lavate_Software_Engineer.pdf"
+            href="/Prashant_Lavate_Software_Engineer_Resume.pdf"
             download
             data-cursor="hover"
             className="inline-flex items-center gap-1.5 border border-border px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-accent hover:text-accent"
@@ -148,7 +148,7 @@ export function SiteHeader() {
               </Link>
 
               <a
-                href="/Prashant_Lavate_Software_Engineer.pdf"
+                href="/Prashant_Lavate_Software_Engineer_Resume.pdf"
                 download
                 onClick={() => setOpen(false)}
                 className="mt-2 inline-flex items-center justify-center gap-1.5 rounded-md border border-border px-3 py-2.5 text-sm font-medium text-foreground"
