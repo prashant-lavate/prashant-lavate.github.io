@@ -12,7 +12,7 @@ export const SITE_CONFIG = {
   email: "prashant.lavate.in@gmail.com",
   location: "Mumbai, Navi Mumbai & Pune",
   availability: "Open to software engineer roles and freelance projects.",
-  resume: "/Prashant_Lavate_Software_Engineer.pdf",
+  resume: "/Prashant_Lavate_Software_Engineer_Resume.pdf",
   social: {
     linkedin: "https://www.linkedin.com/in/prashant-lavate-631966214/",
     github: "https://github.com/prashant-lavate",
