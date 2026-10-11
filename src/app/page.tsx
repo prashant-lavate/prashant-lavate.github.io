@@ -16,7 +16,7 @@ import { TechChip } from "@/components/tech-icon";
 import { SITE_CONFIG, SKILLS, STATS } from "@/lib/constants";
 
 export const metadata = {
-  title: "Full-stack software engineer, Mumbai",
+  title: "Software engineer, Mumbai",
 };
 
 const CAPABILITIES = [
@@ -51,7 +51,7 @@ export default function HomePage() {
     <main className="overflow-x-clip">
       {/* Hero — the site-wide starfield (in layout.tsx) is the background */}
       <section className="relative">
-        <div className="relative site-container grid gap-16 py-20 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12 lg:py-32">
+        <div className="relative site-container grid gap-12 py-16 lg:min-h-[calc(100svh-4.5rem)] lg:grid-cols-[1.35fr_0.75fr] lg:items-center lg:gap-12 lg:py-16">
           <StaggerIn>
             <StaggerItem>
               <span className="mb-5 inline-flex items-center gap-2 rounded-full border border-border bg-surface/70 px-3 py-1 text-xs text-muted-foreground backdrop-blur-sm">
@@ -60,11 +60,11 @@ export default function HomePage() {
               </span>
             </StaggerItem>
             <StaggerItem>
-              <h1 className="font-display max-w-xl text-[clamp(2.75rem,6vw,4.25rem)] font-semibold leading-[1.05] tracking-tight">
+              <h1 className="font-display max-w-2xl text-[clamp(2.5rem,5vw,3.75rem)] font-semibold leading-[1.05] tracking-tight">
                 {SITE_CONFIG.tagline}
               </h1>
             </StaggerItem>
-            <StaggerItem className="mt-6 max-w-md text-lg leading-relaxed text-muted-foreground">
+            <StaggerItem className="mt-6 max-w-lg text-lg leading-relaxed text-muted-foreground">
               I&apos;m {SITE_CONFIG.name.split(" ")[0]}, a software engineer who
               builds and maintains production applications end to end — from
               Angular and React on the frontend to Node.js on the backend, with
@@ -74,21 +74,15 @@ export default function HomePage() {
               <MapPin className="size-4" aria-hidden="true" />
               {SITE_CONFIG.location}
             </StaggerItem>
-            <StaggerItem className="mt-8 flex flex-wrap items-center gap-4">
-              <button>
-                <a
-                  href={SITE_CONFIG.resume}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block bg-accent px-5 py-3 text-sm font-medium text-accent-foreground"
-                >
-                  View resume
-                </a>
-             </button>
-              
+            <StaggerItem className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
+              <Link
+                href="/contact"
+                className="inline-block bg-accent px-5 py-3 text-sm font-medium text-accent-foreground"
+              >
+                Get in touch
+              </Link>
               <Link
                 href="/projects"
-                data-cursor="hover"
                 className="group inline-flex items-center gap-1.5 text-sm font-medium text-foreground hover:text-accent"
               >
                 See my work{" "}
@@ -97,9 +91,21 @@ export default function HomePage() {
                   aria-hidden="true"
                 />
               </Link>
+              <a
+                href={SITE_CONFIG.resume}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center gap-1.5 text-sm font-medium text-foreground hover:text-accent"
+              >
+                Resume{" "}
+                <ArrowUpRight
+                  className="size-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                  aria-hidden="true"
+                />
+              </a>
             </StaggerItem>
 
-            <StaggerItem className="mt-16 grid max-w-md grid-cols-2 gap-6">
+            <StaggerItem className="mt-12 grid max-w-md grid-cols-2 gap-6">
               {STATS.map((stat) => (
                 <div key={stat.label}>
                   <p className="font-display text-3xl font-semibold text-foreground">
@@ -247,7 +253,9 @@ export default function HomePage() {
                 className="hover-lift group relative overflow-hidden rounded-lg border border-border bg-surface/70 p-6 backdrop-blur-sm transition-colors hover:border-accent/40"
               >
                 <div className="pointer-events-none absolute -top-10 -right-10 size-32 rounded-full bg-accent/10 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100" />
-                <p className="text-sm font-medium text-foreground">{category}</p>
+                <p className="text-sm font-medium text-foreground">
+                  {category}
+                </p>
                 <div className="mt-4 flex flex-wrap gap-2">
                   {items.map((item) => (
                     <TechChip
@@ -265,22 +273,71 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Closing CTA */}
+      {/* Two ways to work together: roles and client projects */}
       <section className="hairline">
-        <ScrollReveal className="site-container flex flex-col items-start justify-between gap-8 py-20 sm:flex-row sm:items-end lg:py-24">
-          <h2 className="font-display max-w-lg text-3xl font-semibold leading-tight sm:text-4xl">
-            Hiring a full-stack engineer who owns what ships?
-          </h2>
-          <MagneticButton className="shrink-0">
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 bg-accent px-5 py-3 text-sm font-medium text-accent-foreground"
-            >
-              Get in touch{" "}
-              <ArrowUpRight className="size-4" aria-hidden="true" />
-            </Link>
-          </MagneticButton>
-        </ScrollReveal>
+        <div className="site-container py-20 lg:py-24">
+          <ScrollReveal>
+            <h2 className="font-display max-w-lg text-3xl font-semibold leading-tight sm:text-4xl">
+              Hiring, or have something to build?
+            </h2>
+          </ScrollReveal>
+          <ScrollStagger className="mt-10 grid gap-4 md:grid-cols-2">
+            <ScrollStaggerItem className="hover-lift flex flex-col justify-between rounded-lg border border-border bg-surface/70 p-8 backdrop-blur-sm transition-colors hover:border-accent/40">
+              <div>
+                <h3 className="font-display text-xl font-semibold">
+                  Join your team
+                </h3>
+                <p className="mt-3 leading-relaxed text-muted-foreground">
+                  I&apos;m open to software engineer roles in{" "}
+                  {SITE_CONFIG.location} — building, shipping and supporting
+                  production systems.
+                </p>
+              </div>
+              <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+                <a
+                  href={SITE_CONFIG.resume}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block rounded-md bg-accent px-5 py-3 text-sm font-medium text-accent-foreground"
+                >
+                  View resume
+                </a>
+                <Link
+                  href="/contact"
+                  className="text-sm font-medium text-foreground hover:text-accent"
+                >
+                  Get in touch
+                </Link>
+              </div>
+            </ScrollStaggerItem>
+            <ScrollStaggerItem className="hover-lift flex flex-col justify-between rounded-lg border border-border bg-surface/70 p-8 backdrop-blur-sm transition-colors hover:border-accent/40">
+              <div>
+                <h3 className="font-display text-xl font-semibold">
+                  Build your product
+                </h3>
+                <p className="mt-3 leading-relaxed text-muted-foreground">
+                  Need a web app, an API, or an integration like payments or
+                  WhatsApp built or fixed? I take on freelance projects, from
+                  first scope to deployment.
+                </p>
+              </div>
+              <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+                <Link
+                  href="/contact"
+                  className="inline-block rounded-md bg-accent px-5 py-3 text-sm font-medium text-accent-foreground"
+                >
+                  Start a project
+                </Link>
+                <Link
+                  href="/projects"
+                  className="text-sm font-medium text-foreground hover:text-accent"
+                >
+                  See my work
+                </Link>
+              </div>
+            </ScrollStaggerItem>
+          </ScrollStagger>
+        </div>
       </section>
     </main>
   );

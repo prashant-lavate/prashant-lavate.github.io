@@ -27,7 +27,7 @@ const jetbrainsMono = JetBrains_Mono({
   weight: ["400", "500"],
 });
 
-const SEO_TITLE = `${SITE_CONFIG.name} | Full-stack software engineer`;
+const SEO_TITLE = `${SITE_CONFIG.name} | Software engineer`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_CONFIG.url),
@@ -37,8 +37,8 @@ export const metadata: Metadata = {
   },
   description: SITE_CONFIG.description,
   keywords: [
-    "full-stack developer",
     "software engineer",
+    "freelance software engineer",
     "Angular",
     "Node.js",
     "MongoDB",
